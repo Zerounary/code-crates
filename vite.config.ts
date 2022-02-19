@@ -26,7 +26,7 @@ export default defineConfig({
     ViteComponents({
       extensions: ['vue'],
     }),
-    // vhttps://github.com/stafyniaksacha/vite-plugin-fonts#readme
+    // https://github.com/stafyniaksacha/vite-plugin-fonts#readme
     ViteFonts({
       google: {
         families: ['Open Sans', 'Montserrat', 'Fira Sans'],
