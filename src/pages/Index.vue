@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n';
 
 import { defineComponent, ref } from 'vue';
 import { useTheme } from '/@/composables';
+import { transfrom } from "../common/java"
 
 export default defineComponent({
   name: 'Home',
@@ -25,6 +26,11 @@ export default defineComponent({
 
     return { t, show, toggleLocales, toggleDark };
   },
+  methods:{
+    getMybatisLogSql(logText:string){
+      return transfrom(logText);
+    }
+  }
 });
 </script>
 <template>

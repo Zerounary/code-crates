@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "vite --open --host",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "mocha"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
+    "mocha": "^9.2.0",
     "vue": "^3.2.21",
     "vue-i18n": "^9.2.0-beta.18",
     "vue-router": "^4.0.11"
