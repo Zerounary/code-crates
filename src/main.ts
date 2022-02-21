@@ -5,6 +5,10 @@ import { createI18n } from 'vue-i18n';
 
 import './styles/base.css';
 
+// elementPlus
+import ElementPlus from "element-plus";
+import 'element-plus/dist/index.css';
+
 // Router
 import { Router } from '/@/router';
 
@@ -19,12 +23,14 @@ const app = createApp(App);
 
 //
 const i18n = createI18n({
-  locale: 'en',
+  locale: 'zh',
   messages,
 });
 
 app.use(i18n);
 
 app.use(Router);
+
+app.use(ElementPlus);
 
 app.mount('#app');

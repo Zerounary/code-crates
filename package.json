@@ -9,8 +9,10 @@
     "test": "mocha --require babel-register"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.5.0",
+    "codemirror": "^5.65.1",
     "lodash": "^4.17.21",
+    "monaco-editor": "^0.32.1",
+    "monaco-editor-vue3": "^0.1.5",
     "vue": "^3.2.21",
     "vue-i18n": "^9.2.0-beta.18",
     "vue-router": "^4.0.11"
@@ -23,13 +25,15 @@
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.2.21",
     "@vueuse/core": "^6.8.0",
-    "babel-register": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "element-plus": "^2.0.2",
     "mocha": "^9.2.0",
     "typescript": "^4.4.4",
     "vite": "^2.6.14",
     "vite-plugin-components": "^0.13.3",
     "vite-plugin-fonts": "^0.2.2",
+    "vite-plugin-monaco-editor": "^1.0.10",
     "vite-plugin-purge-icons": "^0.7.0",
     "vite-plugin-windicss": "^1.5.1",
     "vite-svg-loader": "^3.1.0",

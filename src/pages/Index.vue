@@ -2,106 +2,70 @@
 import { useI18n } from 'vue-i18n';
 
 import { defineComponent, ref } from 'vue';
-import { useTheme } from '/@/composables';
-import { transfrom } from "../common/java"
+import { transfrom } from '../common/java';
+
+import {editor} from 'monaco-editor';
+
+let monacoEditor: editor.IStandaloneCodeEditor;
 
 export default defineComponent({
   name: 'Home',
   setup() {
-    const { t, availableLocales, locale } = useI18n();
-
-    const toggleLocales = () => {
-      const locales = availableLocales;
-      locale.value =
-        locales[(locales.indexOf(locale.value) + 1) % locales.length];
+    const { t } = useI18n();
+    const activeIndex = ref('1');
+    return {
+      activeIndex,
+      t,
     };
-
-    const { toggleDark } = useTheme();
-
-    const show = ref(false);
-
-    setTimeout(() => {
-      show.value = true;
-    }, 1000);
-
-    return { t, show, toggleLocales, toggleDark };
   },
-  methods:{
-    getMybatisLogSql(logText:string){
+  data() {
+    return {
+      code: 'this',
+    };
+  },
+  mounted() {
+    monacoEditor = editor.create(document.getElementById('textEditor') as HTMLElement, {
+      value: 'sss',
+      language: 'text'
+    });
+  },
+
+  methods: {
+    handleSelect (key: string, keyPath: string[]) {
+      console.log(key, keyPath);
+      if (key == 'log-sql') {
+        let text = monacoEditor.getValue();
+        console.log("🚀 ~ file: Index.vue ~ line 38 ~ handleSelect ~ text", text)
+        let sql = transfrom(text);
+        monacoEditor.setValue(sql);
+      }
+    },
+    getMybatisLogSql(logText: string) {
       return transfrom(logText);
-    }
-  }
+    },
+    log() {
+      console.log(this.code);
+    },
+  },
 });
 </script>
 <template>
-  <div class="container max-w-3xl mx-auto mt-60">
-    <div class="h-60 mb-8">
-      <transition
-        enter-active-class="transition ease-out duration-1000 transform"
-        enter-from-class="-translate-x-100 opacity-0"
-        enter-to-class="translate-x-0 opacity-100"
-        leave-active-class="transition ease-in duration-1000 transform"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-      >
-        <img
-          v-if="show"
-          alt="Vitesome logo"
-          class="w-52 mx-auto mb-12"
-          :src="'imagotype.svg'"
-        />
-      </transition>
-    </div>
-
-    <HelloWorld :msg="t('hello') + ' 👋 ' + t('welcome')" />
-
-    <footer class="text-center">
-      <ul class="flex justify-between w-1/3 mx-auto mb-8">
-        <li class="cursor-pointer text-2xl">
-          <a
-            href="#"
-            @click="toggleLocales"
-            class="footer-link text-cyan-700 hover:text-cyan-500"
-            :title="t('toggle_language')"
-          >
-            <i class="iconify" :data-icon="'ant-design:translation-outlined'" />
-          </a>
-        </li>
-        <li class="cursor-pointer text-2xl">
-          <a
-            href="#"
-            @click="toggleDark"
-            class="text-cyan-700 hover:text-cyan-500"
-            :title="t('toggle_theme')"
-          >
-            <i class="iconify" :data-icon="'mdi:theme-light-dark'" />
-          </a>
-        </li>
-        <li class="cursor-pointer text-2xl">
-          <a
-            href="https://github.com/alvarosaburido"
-            rel="noreferrer"
-            target="_blank"
-            class="footer-link text-cyan-700 hover:text-cyan-500"
-            title="Github repo"
-          >
-            <i class="iconify" :data-icon="'mdi:github'" />
-          </a>
-        </li>
-      </ul>
-
-      <span class="text-xs"
-        >{{ t('made_by') }}
-        <a
-          class="footer-link text-cyan-400 hover:text-cyan-500"
-          href="https://github.com/alvarosaburido"
-          rel="noreferrer"
-          target="_blank"
-          >Alvaro Saburido</a
-        ></span
-      >
-    </footer>
+  <div class="text-black bg-gray-300">
+    <el-menu
+      :default-active="activeIndex"
+      @select="handleSelect"
+      mode="horizontal"
+    >
+      <el-menu-item index="1">{{ t('app') }}</el-menu-item>
+      <el-sub-menu index="mybatis">
+        <template #title>{{ t('mybatis') }}</template>
+        <el-menu-item index="log-sql">
+          {{ t('mybatis-log-sql-transform') }}
+        </el-menu-item>
+      </el-sub-menu>
+    </el-menu>
   </div>
+  <div class="h-[calc(100vh-60px)] w-screen" id="textEditor"></div>
 </template>
 
 <style>
