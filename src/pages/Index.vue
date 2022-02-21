@@ -25,7 +25,7 @@ export default defineComponent({
   },
   mounted() {
     monacoEditor = editor.create(document.getElementById('textEditor') as HTMLElement, {
-      value: 'sss',
+      value: '',
       language: 'text'
     });
   },
@@ -37,7 +37,8 @@ export default defineComponent({
         let text = monacoEditor.getValue();
         console.log("🚀 ~ file: Index.vue ~ line 38 ~ handleSelect ~ text", text)
         let sql = transfrom(text);
-        monacoEditor.setValue(sql);
+        let sqlModel = editor.createModel(sql, 'sql')
+        monacoEditor.setModel(sqlModel);
       }
     },
     getMybatisLogSql(logText: string) {
