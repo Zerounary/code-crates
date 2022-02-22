@@ -66,7 +66,7 @@ SELECT * FROM ( SELECT rownum as "#NO", "#O".* FROM (WITH v_w as (SELECT sum(i.t
 2022-02-19 16:11:57.210 DEBUG 2408 --- [http-nio-8080-exec-1] SELECT.527967772                         : ==> Parameters: 20220107(Integer), 20220107(Integer), 87(Integer), 87(Integer), 20220107(Integer), 20220107(Integer), 20220107(Integer), 20220107(Integer), 20220107(Integer), 20220107(Integer), 20220107(Integer), 87(Integer)
 
 
-Tips: 日志随便复制，只要包含了日志sql和参数就可以自动替换，多余的会自动过滤掉
+Tips: 日志随便复制，只要包含了日志sql和参数就可以自动替换，多余的会自动过滤掉。 你可以直接再次点击【日志转SQL】按钮尝试直接转换这个文本内容。
 
 
 
