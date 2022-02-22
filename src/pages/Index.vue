@@ -67,7 +67,7 @@ export default defineComponent({
       <el-menu-item index="1">{{ t('app') }}</el-menu-item>
       <el-sub-menu index="mybatis">
         <template #title>
-          <img src="brands/mybatis.svg" class="w-16px" />
+          <img :src="'brands/mybatis.svg'" class="w-16px" />
           <span>{{ t('mybatis') }}</span>
         </template>
         <el-menu-item index="log-sql">
