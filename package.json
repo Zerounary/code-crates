@@ -6,6 +6,7 @@
     "dev": "vite --open --host",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
+    "deploy": "vue-tsc --noEmit && vite build && zx deploy.mjs",
     "test": "mocha --require babel-register"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "vite-plugin-windicss": "^1.5.1",
     "vite-svg-loader": "^3.1.0",
     "vue-tsc": "^0.29.4",
-    "windicss": "^3.2.1"
+    "windicss": "^3.2.1",
+    "zx": "^5.1.0"
   }
 }
