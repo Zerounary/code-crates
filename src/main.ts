@@ -32,7 +32,7 @@ app.use(i18n);
 app.use(Router);
 
 app.use(ElementPlus, {
-  size: "small"
+  // size: "small"
 });
 
 app.mount('#app');

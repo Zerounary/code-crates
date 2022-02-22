@@ -28,12 +28,20 @@ export default defineComponent({
       document.getElementById('textEditor') as HTMLElement,
       {
         value: '',
-        language: 'text',
+        language: 'json',
       },
     );
   },
 
   methods: {
+    formatCode(){
+      let lang = 'json';
+      this.changeLanguage(lang);
+      monacoEditor.getAction('editor.action.formatDocument').run();
+    },
+    changeLanguage(lang:string  = "text"){
+      editor.setModelLanguage(monacoEditor.getModel() as editor.ITextModel, lang);
+    },
     handleSelect(key: string, keyPath: string[]) {
       console.log(key, keyPath);
       this.activeIndex = keyPath[0];
@@ -63,27 +71,15 @@ export default defineComponent({
       </el-menu-item>
     </el-menu>
   </div>
-  <el-button-group class="m-1 space-x-1" v-show="activeIndex == 'mybatis'">
+  <div class="h-[calc(100vh-120px)] w-screen" id="textEditor"></div>
+  <el-button-group class="my-2 mx-3" v-show="activeIndex == 'mybatis'">
+    <el-button @click="formatCode">
+      {{ t('format-json') }}
+    </el-button>
     <el-button type="primary" @click="mybatisLog2Sql">
-      {{t('mybatis-log-sql-transform')}}
-      <!-- <el-tooltip
-        placement="bottom-start"
-        show-after="1000"
-        :content="t('mybatis-log-sql-transform')"
-      >
-        <div class="h-full flex justify-center items-center">
-          <span class="iconify" data-width="24" data-icon="mdi:math-log"></span>
-          <span
-            class="iconify"
-            data-width="24"
-            data-icon="bxs:arrow-to-right"
-          ></span>
-          <span class="iconify" data-width="24" data-icon="carbon:sql"></span>
-        </div>
-      </el-tooltip> -->
+      {{ t('mybatis-log-sql-transform') }}
     </el-button>
   </el-button-group>
-  <div class="h-[calc(100vh-120px)] w-screen" id="textEditor"></div>
 </template>
 
 <style>

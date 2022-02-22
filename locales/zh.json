@@ -1,5 +1,7 @@
 {
   "app": "Code Crates",
   "mybatis": "Mybatis",
-  "mybatis-log-sql-transform": "SQL日志"
+  "mybatis-log-sql-transform": "日志转SQL",
+  "format": "格式化",
+  "format-json": "格式化JSON"
 }
