@@ -31,6 +31,8 @@ app.use(i18n);
 
 app.use(Router);
 
-app.use(ElementPlus);
+app.use(ElementPlus, {
+  size: "small"
+});
 
 app.mount('#app');

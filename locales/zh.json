@@ -1,5 +1,5 @@
 {
   "app": "Code Crates",
   "mybatis": "Mybatis",
-  "mybatis-log-sql-transform": "Mybatis SQL日志转换"
+  "mybatis-log-sql-transform": "SQL日志"
 }
