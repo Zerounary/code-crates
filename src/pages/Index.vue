@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { defineComponent, ref } from 'vue';
 import { transfrom } from '../common/java';
 
-import {editor} from 'monaco-editor';
+import { editor } from 'monaco-editor';
 
 let monacoEditor: editor.IStandaloneCodeEditor;
 
@@ -24,20 +24,26 @@ export default defineComponent({
     };
   },
   mounted() {
-    monacoEditor = editor.create(document.getElementById('textEditor') as HTMLElement, {
-      value: '',
-      language: 'text'
-    });
+    monacoEditor = editor.create(
+      document.getElementById('textEditor') as HTMLElement,
+      {
+        value: '',
+        language: 'text',
+      },
+    );
   },
 
   methods: {
-    handleSelect (key: string, keyPath: string[]) {
+    handleSelect(key: string, keyPath: string[]) {
       console.log(key, keyPath);
       if (key == 'log-sql') {
         let text = monacoEditor.getValue();
-        console.log("🚀 ~ file: Index.vue ~ line 38 ~ handleSelect ~ text", text)
+        console.log(
+          '🚀 ~ file: Index.vue ~ line 38 ~ handleSelect ~ text',
+          text,
+        );
         let sql = transfrom(text);
-        let sqlModel = editor.createModel(sql, 'sql')
+        let sqlModel = editor.createModel(sql, 'sql');
         monacoEditor.setModel(sqlModel);
       }
     },
@@ -56,10 +62,14 @@ export default defineComponent({
       :default-active="activeIndex"
       @select="handleSelect"
       mode="horizontal"
+      menu-trigger="click"
     >
       <el-menu-item index="1">{{ t('app') }}</el-menu-item>
       <el-sub-menu index="mybatis">
-        <template #title>{{ t('mybatis') }}</template>
+        <template #title>
+          <img src="brands/mybatis.svg" class="w-16px" />
+          <span>{{ t('mybatis') }}</span>
+        </template>
         <el-menu-item index="log-sql">
           {{ t('mybatis-log-sql-transform') }}
         </el-menu-item>
