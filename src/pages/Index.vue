@@ -70,9 +70,31 @@ export default defineComponent({
           <img :src="'brands/mybatis.svg'" class="w-16px" />
           <span>{{ t('mybatis') }}</span>
         </template>
-        <el-menu-item index="log-sql">
-          {{ t('mybatis-log-sql-transform') }}
-        </el-menu-item>
+        <el-tooltip
+          placement="right-start"
+          show-after="1000"
+          :content="t('mybatis-log-sql-transform')"
+        >
+          <el-menu-item index="log-sql">
+            <div class="flex items-center">
+              <span
+                class="iconify"
+                data-width="32"
+                data-icon="mdi:math-log"
+              ></span>
+              <span
+                class="iconify"
+                data-width="32"
+                data-icon="bxs:arrow-to-right"
+              ></span>
+              <span
+                class="iconify"
+                data-width="32"
+                data-icon="carbon:sql"
+              ></span>
+            </div>
+          </el-menu-item>
+        </el-tooltip>
       </el-sub-menu>
     </el-menu>
   </div>
