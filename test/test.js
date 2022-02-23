@@ -28,26 +28,12 @@ describe('java相关测试', function () {
     it('获取日志内容', function () {
       assert.equal(
         transfrom(
-          `Source-1} inited
+          `Source0} inited
      2022-02-23 14:55:46.420 DEBUG 9852 --- [nio-8079-exec-5] c.u.p.mapper.UserMapper.findUserByname   : ==>  Preparing: select u.id "uid", u.name "name", u.name as "username", u.email as "email", u.passwordhash "password", get_user_attr(u.id) as "attr", g.id "gid", g.name "groupname" from users u left join groupuser r on u.id = r.userid left join groups g on r.groupid = g.id where u.name = ?
      2022-02-23 14:55:46.549 DEBUG 9852 --- [nio-8079-exec-5] c.u.p.mapper.UserMapper.findUserByname   : ==> Parameters: admin(String)`,
         ),
         format(
-          `select
-       u.id "uid",
-       u.name "name",
-       u.name as "username",
-       u.email as "email",
-       u.passwordhash "password",
-       get_user_attr(u.id) as "attr",
-       g.id "gid",
-       g.name "groupname"
-     from
-       users u
-       left join groupuser r on u.id = r.userid
-       left join groups g on r.groupid = g.id
-     where
-       u.name = 'admin'`,
+          `select u.id "uid", u.name "name", u.name as "username", u.email as "email", u.passwordhash "password", get_user_attr(u.id) as "attr", g.id "gid", g.name "groupname" from users u left join groupuser r on u.id = r.userid left join groups g on r.groupid = g.id where u.name = 'admin'`,
         ),
       );
     });

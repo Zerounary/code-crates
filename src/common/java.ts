@@ -1,6 +1,4 @@
 import trim from 'lodash/trim';
-import trimStart from 'lodash/trimStart';
-import trimEnd from 'lodash/trimEnd';
 import split from 'lodash/split';
 import { format } from 'sql-formatter';
 export let transfrom = (text = '') => {
@@ -15,14 +13,12 @@ export let transfrom = (text = '') => {
   try {
     let found_sql = sql_reg.exec(text) || [];
     let found_param = params_reg.exec(text) || [];
-    let sql = trim(trimStart(found_sql[0] || '', '==>  Preparing: '));
-    let params = trim(
-      trimStart(found_param[0] || '', '==>  Parameters: '),
-    );
+    let sql = trim((found_sql[0] || '').replace(/==>\s+Preparing:/, ''));
+    let params = trim((found_param[0] || '').replace(/==>\s+Parameters:/, ''));
     for (let param of split(params, ', ')) {
       let parts = split(param, '(');
       let value = parts[0];
-      let type = trimEnd(parts[1], ')');
+      let type = parts[1].replace(/\)/, '');
       let pv = '';
       if (['String', 'Char'].includes(type)) {
         pv = `'${value}'`;
