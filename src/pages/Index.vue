@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 
 import { defineComponent, ref } from 'vue';
 import { transfrom } from '../common/java';
-
+import {diff_left_example, diff_right_example} from "../common/text";
 import { editor } from 'monaco-editor';
 
 let monacoEditor: editor.IStandaloneCodeEditor;
@@ -49,8 +49,8 @@ export default defineComponent({
           monacoEditor.getModel()?.dispose();
           monacoEditor.dispose();
         }
-        originalModel = editor.createModel('', 'text/plain');
-        modifiedModel = editor.createModel('', 'text/plain');
+        originalModel = editor.createModel(diff_left_example, 'text/plain');
+        modifiedModel = editor.createModel(diff_right_example, 'text/plain');
         diffEditor = editor.createDiffEditor(
           document.getElementById(id) as HTMLElement,
           {
