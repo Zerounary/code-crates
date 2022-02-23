@@ -8,6 +8,10 @@ import { editor } from 'monaco-editor';
 
 let monacoEditor: editor.IStandaloneCodeEditor;
 
+let originalModel: editor.ITextModel;
+let modifiedModel: editor.ITextModel;
+let diffEditor: editor.IStandaloneDiffEditor;
+
 export default defineComponent({
   name: 'Home',
   setup() {
@@ -19,32 +23,68 @@ export default defineComponent({
     };
   },
   data() {
-    return {
-      code: 'this',
-    };
+    return {};
   },
   mounted() {
-    monacoEditor = editor.create(
-      document.getElementById('textEditor') as HTMLElement,
-      {
-        value: '',
-        language: 'json',
-      },
-    );
+    this.createEditor(this.eidtorTypeOf(this.activeIndex), 'textEditor');
   },
 
   methods: {
-    formatCode(){
+    createEditor(type = 'editor', id = 'textEditor') {
+      if (type == 'editor') {
+        if (diffEditor) {
+          originalModel.dispose();
+          modifiedModel.dispose();
+          diffEditor.dispose();
+        }
+        monacoEditor = editor.create(
+          document.getElementById(id) as HTMLElement,
+          {
+            value: '',
+            language: 'json',
+          },
+        );
+      } else if (type == 'diffEditor') {
+        if (monacoEditor) {
+          monacoEditor.getModel()?.dispose();
+          monacoEditor.dispose();
+        }
+        originalModel = editor.createModel('', 'text/plain');
+        modifiedModel = editor.createModel('', 'text/plain');
+        diffEditor = editor.createDiffEditor(
+          document.getElementById(id) as HTMLElement,
+          {
+            originalEditable: true,
+            readOnly: false,
+          },
+        );
+        diffEditor.setModel({
+          original: originalModel,
+          modified: modifiedModel,
+        });
+      }
+    },
+    eidtorTypeOf(key: string) {
+      if (['diff'].includes(key)) {
+        return 'diffEditor';
+      }
+      return 'editor';
+    },
+    formatCode() {
       let lang = 'json';
       this.changeLanguage(lang);
       monacoEditor.getAction('editor.action.formatDocument').run();
     },
-    changeLanguage(lang:string  = "text"){
-      editor.setModelLanguage(monacoEditor.getModel() as editor.ITextModel, lang);
+    changeLanguage(lang: string = 'text') {
+      editor.setModelLanguage(
+        monacoEditor.getModel() as editor.ITextModel,
+        lang,
+      );
     },
     handleSelect(key: string, keyPath: string[]) {
       console.log(key, keyPath);
       this.activeIndex = keyPath[0];
+      this.createEditor(this.eidtorTypeOf(this.activeIndex), 'textEditor');
     },
     mybatisLog2Sql() {
       let text = monacoEditor.getValue();
@@ -67,6 +107,16 @@ export default defineComponent({
       <el-menu-item index="mybatis">
         <template #title>
           <img :src="'brands/mybatis.svg'" class="w-16px" />{{ t('mybatis') }}
+        </template>
+      </el-menu-item>
+      <el-menu-item index="diff">
+        <template #title>
+          <span
+            class="iconify"
+            data-icon="carbon:compare"
+            data-width="16"
+          ></span
+          >{{ t('diff-comparing') }}
         </template>
       </el-menu-item>
     </el-menu>

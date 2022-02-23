@@ -3,5 +3,8 @@
   "mybatis": "Mybatis",
   "mybatis-log-sql-transform": "日志转SQL",
   "format": "格式化",
-  "format-json": "格式化JSON"
+  "format-json": "格式化JSON",
+  "diff": "差异",
+  "diff-comparing": "差异对比"
+
 }
