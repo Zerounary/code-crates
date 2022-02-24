@@ -8,7 +8,7 @@
     "serve": "vite preview",
     "deploy": "vue-tsc --noEmit && vite build && zx deploy.mjs",
     "test": "mocha --require babel-register",
-    "commit": "git-cz",
+    "commit": "git-cz -a",
     "release": "standard-version"
   },
   "dependencies": {
