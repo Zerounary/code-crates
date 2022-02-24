@@ -7,7 +7,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "deploy": "vue-tsc --noEmit && vite build && zx deploy.mjs",
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register",
+    "commit": "git-cz",
+    "release": "standard-version"
   },
   "dependencies": {
     "codemirror": "^5.65.1",
@@ -30,8 +32,11 @@
     "@vueuse/core": "^6.8.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "element-plus": "^2.0.2",
     "mocha": "^9.2.0",
+    "standard-version": "^9.3.2",
     "typescript": "^4.4.4",
     "vite": "^2.6.14",
     "vite-plugin-components": "^0.13.3",
