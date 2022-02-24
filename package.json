@@ -49,5 +49,10 @@
     "vue-tsc": "^0.29.4",
     "windicss": "^3.2.1",
     "zx": "^5.1.0"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
