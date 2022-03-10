@@ -16,16 +16,20 @@ export let transfrom = (text = '') => {
     let sql = trim((found_sql[0] || '').replace(/==>\s+Preparing:/, ''));
     let params = trim((found_param[0] || '').replace(/==>\s+Parameters:/, ''));
     for (let param of split(params, ', ')) {
-      let parts = split(param, '(');
-      let value = parts[0];
-      let type = parts[1].replace(/\)/, '');
-      let pv = '';
-      if (['String', 'Char'].includes(type)) {
-        pv = `'${value}'`;
-      } else if (['Integer', 'Long', 'BigDecimal', 'Double'].includes(type)) {
-        pv = `${value}`;
+      if (param.includes('(')) {
+        let parts = split(param, '(');
+        let value = parts[0];
+        let type = parts[1].replace(/\)/, '');
+        let pv = '';
+        if (['String', 'Char'].includes(type)) {
+          pv = `'${value}'`;
+        } else if (['Integer', 'Long', 'BigDecimal', 'Double'].includes(type)) {
+          pv = `${value}`;
+        }
+        sql = sql.replace('?', pv);
+      } else {
+        sql = sql.replace('?', 'null');
       }
-      sql = sql.replace('?', pv);
     }
     // console.log('🚀 ~ file: java.js ~ line 30 ~ transfrom ~ sql', sql);
     return format(sql);
@@ -33,7 +37,6 @@ export let transfrom = (text = '') => {
     return `解析失败: ${error}`;
   }
 };
-
 
 export let errorTips = `
 错误格式！
@@ -67,4 +70,3 @@ Tips: 日志随便复制，只要包含了日志sql和参数就可以自动替�
 
 
  `;
-

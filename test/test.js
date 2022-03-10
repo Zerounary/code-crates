@@ -50,5 +50,136 @@ describe('java相关测试', function () {
         ),
       );
     });
+
+    it('null值转换', function () {
+      assert.equal(
+        transfrom(
+          `eportMapper.insertFacts    : ==>  Preparing: insert into AD_CXTAB_FACT (id, ad_client_id, ad_org_id, isactive, creationdate, ownerid, modifieddate, modifierid, ad_cxtab_id, description, function_, valuename, userfact, valueformat, sgrade, orderno ) select get_sequences('AD_CXTAB_DIMENSION'), 37, 27, 'Y', sysdate, 893, sysdate, 893, ?, ?, ?, ?, ?, ?, ?, ? * 10 + 10 from dual union all select get_sequences('AD_CXTAB_DIMENSION'), 37, 27, 'Y', sysdate, 893, sysdate, 893, ?, ?, ?, ?, ?, ?, ?, ? * 10 + 10 from dual union all select get_sequences('AD_CXTAB_DIMENSION'), 37, 27, 'Y', sysdate, 893, sysdate, 893, ?, ?, ?, ?, ?, ?, ?, ? * 10 + 10 from dual union all select get_sequences('AD_CXTAB_DIMENSION'), 37, 27, 'Y', sysdate, 893, sysdate, 893, ?, ?, ?, ?, ?, ?, ?, ? * 10 + 10 from dual union all select get_sequences('AD_CXTAB_DIMENSION'), 37, 27, 'Y', sysdate, 893, sysdate, 893, ?, ?, ?, ?, ?, ?, ?, ? * 10 + 10 from dual
+2022-03-10 15:06:21.723 DEBUG 11568 --- [nio-8079-exec-9] c.u.p.mapper.ReportMapper.insertFacts    : ==> Parameters: 5029(Integer), 在途数量(String), (String), (String), (String), #0.00(String), null, 0(Integer), 5029(Integer), 可配数量(String), (String), (String), (String), #0.00(String), null, 1(Integer), 5029(Integer), 在单数量(String), (String), (String), (String), #0.00(String), null, 2(Integer), 5029(Integer), 预计数量(String), (String), (String), (String), #0.00(String), null, 3(Integer), 5029(Integer), 库存数量(String), MAX(String), (String), (String), #0.00(String), 0(Integer), 4(Integer)
+2022-03-10 15:06:21.766 DEBUG 11568 --- [nio-8079-exec-9] c.u.p.mapper.ReportMapper.insertFacts    : <==    Updates: 5`,
+        ),
+        format(
+          `insert into
+  AD_CXTAB_FACT (
+    id,
+    ad_client_id,
+    ad_org_id,
+    isactive,
+    creationdate,
+    ownerid,
+    modifieddate,
+    modifierid,
+    ad_cxtab_id,
+    description,
+    function_,
+    valuename,
+    userfact,
+    valueformat,
+    sgrade,
+    orderno
+  )
+select
+  get_sequences('AD_CXTAB_DIMENSION'),
+  37,
+  27,
+  'Y',
+  sysdate,
+  893,
+  sysdate,
+  893,
+  5029,
+  '在途数量',
+  '',
+  '',
+  '',
+  '#0.00',
+  null,
+  0 * 10 + 10
+from
+  dual
+union all
+select
+  get_sequences('AD_CXTAB_DIMENSION'),
+  37,
+  27,
+  'Y',
+  sysdate,
+  893,
+  sysdate,
+  893,
+  5029,
+  '可配数量',
+  '',
+  '',
+  '',
+  '#0.00',
+  null,
+  1 * 10 + 10
+from
+  dual
+union all
+select
+  get_sequences('AD_CXTAB_DIMENSION'),
+  37,
+  27,
+  'Y',
+  sysdate,
+  893,
+  sysdate,
+  893,
+  5029,
+  '在单数量',
+  '',
+  '',
+  '',
+  '#0.00',
+  null,
+  2 * 10 + 10
+from
+  dual
+union all
+select
+  get_sequences('AD_CXTAB_DIMENSION'),
+  37,
+  27,
+  'Y',
+  sysdate,
+  893,
+  sysdate,
+  893,
+  5029,
+  '预计数量',
+  '',
+  '',
+  '',
+  '#0.00',
+  null,
+  3 * 10 + 10
+from
+  dual
+union all
+select
+  get_sequences('AD_CXTAB_DIMENSION'),
+  37,
+  27,
+  'Y',
+  sysdate,
+  893,
+  sysdate,
+  893,
+  5029,
+  '库存数量',
+  'MAX',
+  '',
+  '',
+  '#0.00',
+  0,
+  4 * 10 + 10
+from
+  dual`,
+        ),
+      );
+    });
+
   });
 });
