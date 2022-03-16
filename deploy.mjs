@@ -8,7 +8,7 @@ const {green} = chalk;
 let host = '156';
 let ip = '45.145.75.156';
 const nginxHome = `/usr/local/nginx`;
-const nginxHtml = `${nginxHome}/html`;
+const nginxHtml = `${nginxHome}/tools.jianpuwang.cn`;
 
 console.log('删除已有文件');
 await $`ssh ${host} "rm -rf ${nginxHtml}"`;
