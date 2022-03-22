@@ -8,12 +8,13 @@ export let transfrom = (text = '') => {
   ) {
     return errorTips;
   }
+  let sql;
   let sql_reg = /==>\s+Preparing: .*\r?\n/gm;
   let params_reg = /==>\s+Parameters: .*\r?(\n|$)/gm;
   try {
     let found_sql = sql_reg.exec(text) || [];
     let found_param = params_reg.exec(text) || [];
-    let sql = trim((found_sql[0] || '').replace(/==>\s+Preparing:/, ''));
+    sql = trim((found_sql[0] || '').replace(/==>\s+Preparing:/, ''));
     let params = trim((found_param[0] || '').replace(/==>\s+Parameters:/, ''));
     for (let param of split(params, ', ')) {
       if (param.includes('(')) {
@@ -32,9 +33,15 @@ export let transfrom = (text = '') => {
       }
     }
     // console.log('🚀 ~ file: java.js ~ line 30 ~ transfrom ~ sql', sql);
-    return format(sql);
   } catch (error) {
     return `解析失败: ${error}`;
+  }
+  try{
+    return format(sql);
+  }catch(error){
+    return `
+    -- 格式化失败！
+    ${sql}`;
   }
 };
 
